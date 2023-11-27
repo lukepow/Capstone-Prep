@@ -110,3 +110,117 @@ const Button = ({ onClick, text }) => (
   </button>
 )
 ```
+
+## A more complex state, debugging React Apps
+
+In React, it is forbidden to mutate states directly. For example, instead of this function:
+```js
+const handleLeftClick = () => {
+  clicks.left++
+  setClicks(clicks)
+}
+```
+We create a new object:
+```js
+const handleLeftClick = () =>
+  setClicks({ ...clicks, left: clicks.left + 1 })
+```
+
+Rules of hooks:
+ - the `useState` function must not be called from inside a loop, a conditional expression, or any place that is not a function defining component
+   - this is done to make sure the hooks are always called in the same order
+
+```js
+const App = () => {
+  // these are ok
+  const [age, setAge] = useState(0)
+  const [name, setName] = useState('Juha Tauriainen')
+
+  if ( age > 10 ) {
+    // this does not work!
+    const [foobar, setFoobar] = useState(null)
+  }
+
+  for ( let i = 0; i < age; i++ ) {
+    // also this is not good
+    const [rightWay, setRightWay] = useState(false)
+  }
+
+  const notGood = () => {
+    // and this is also illegal
+    const [x, setX] = useState(-1000)
+  }
+
+  return (
+    //...
+  )
+}
+```
+
+Event Handling:
+
+Event handlers must be a function or a reference to a function, such as:
+
+```js
+<button onClick={() => console.log('clicked the button')}>
+  button
+</button>
+```
+
+Passing Event Handlers to Child Components:
+
+Extracting the button into its own component:
+```js
+const Button = (props) => (
+  <button onClick={props.handleClick}>
+    {props.text}
+  </button>
+)
+```
+This component gets the event handler function from the `handleClick` prop and the text of the button from the `text` prop. Using the component looks like this:
+```js
+const App = (props) => {
+  // ...
+  return (
+    <div>
+      {value}
+
+      <Button handleClick={() => setToValue(1000)} text="thousand" />
+      <Button handleClick={() => setToValue(0)} text="reset" />
+      <Button handleClick={() => setToValue(value + 1)} text="increment" />
+    </div>
+  )
+}
+```
+
+We must make sure not to define components within components such as the following:
+```js
+// This is the right place to define a component
+const Button = (props) => (
+  <button onClick={props.handleClick}>
+    {props.text}
+  </button>
+)
+
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const setToValue = newValue => {
+    console.log('value now', newValue)
+    setValue(newValue)
+  }
+
+  // Do not define components inside another component
+
+  const Display = props => <div>{props.value}</div>
+
+  return (
+    <div>
+      <Display value={value} />
+      <Button handleClick={() => setToValue(1000)} text="thousand" />
+      <Button handleClick={() => setToValue(0)} text="reset" />
+      <Button handleClick={() => setToValue(value + 1)} text="increment" />
+    </div>
+  )
+}
+```
