@@ -259,3 +259,119 @@ Here, we also include a `key` attribute. This allows React to determine how to u
  - Don't use array indexes as keys
 
 Common practice in react is to declare each component in its own file as an ES6 module
+
+### Part B
+First, we add an HTML component that will be used for adding new notes. We also initialize our `notes` variable to equal `props.notes`
+
+```js
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes)
+
+
+  const addNote = (event) => {
+    event.preventDefault()
+    console.log('button clicked', event.target)
+  }
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {notes.map(note => 
+          <Note key={note.id} note={note} />
+        )}
+      </ul>
+
+      <form onSubmit={addNote}>
+        <input />
+        <button type="submit">save</button>
+      </form>   
+    </div>
+  )
+}
+```
+
+If we want to access the data contained in the form's input element, we can use controlled components.
+
+We can add a piece of state called `newNote` and set it as the input element's value attribute:
+```js
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes)
+
+  const [newNote, setNewNote] = useState(
+    'a new note...'
+  ) 
+
+  const addNote = (event) => {
+    event.preventDefault()
+    console.log('button clicked', event.target)
+  }
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {notes.map(note => 
+          <Note key={note.id} note={note} />
+        )}
+      </ul>
+      <form onSubmit={addNote}>
+
+        <input value={newNote} />
+        <button type="submit">save</button>
+      </form>   
+    </div>
+  )
+}
+```
+
+To enable editing of the input element, we have to register an event handler that synchronizes the changes made to the input with the component's state:
+```js
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes)
+  const [newNote, setNewNote] = useState(
+    'a new note...'
+  ) 
+
+  // ...
+
+
+  const handleNoteChange = (event) => {
+    console.log(event.target.value)
+    setNewNote(event.target.value)
+  }
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {notes.map(note => 
+          <Note key={note.id} note={note} />
+        )}
+      </ul>
+      <form onSubmit={addNote}>
+        <input
+          value={newNote}
+
+          onChange={handleNoteChange}
+        />
+        <button type="submit">save</button>
+      </form>   
+    </div>
+  )
+}
+```
+now the App component's `newNote` state reflects the current value of the input, which means we can complete the `addNote` function for creating new notes:
+```js
+const addNote = (event) => {
+  event.preventDefault()
+  const noteObject = {
+    content: newNote,
+    important: Math.random() < 0.5,
+    id: notes.length + 1,
+  }
+
+  setNotes(notes.concat(noteObject))
+  setNewNote('')
+}
+```
