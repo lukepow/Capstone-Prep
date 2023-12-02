@@ -375,3 +375,56 @@ const addNote = (event) => {
   setNewNote('')
 }
 ```
+
+### Getting Data From the Server:
+
+After installing axios, we can use it like this:
+```js
+import axios from 'axios'
+
+const promise = axios.get('http://localhost:3001/notes')
+console.log(promise)
+```
+A more common way to use axios:
+```js
+axios
+  .get('http://localhost:3001/notes')
+  .then(response => {
+    const notes = response.data
+    console.log(notes)
+  })
+```
+
+The effect hook:
+ - the effect hook lets you perform side effects on function components
+ - We can use them to fetch data from the server
+
+Now we can update the `App` component as follows:
+```js
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import Note from './components/Note'
+
+
+const App = () => {
+  const [notes, setNotes] = useState([])
+  const [newNote, setNewNote] = useState('')
+  const [showAll, setShowAll] = useState(true)
+
+
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/notes')
+      .then(response => {
+        console.log('promise fulfilled')
+        setNotes(response.data)
+      })
+  }, [])
+  console.log('render', notes.length, 'notes')
+
+  // ...
+}
+```
+
+# Part 3
