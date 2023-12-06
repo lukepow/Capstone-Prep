@@ -428,3 +428,54 @@ const App = () => {
 ```
 
 # Part 3
+The `express` module is designed to work with the built in `http` module to make it easier to work with a server
+
+```js
+const express = require('express')
+const app = express()
+
+let notes = [
+  ...
+]
+
+app.get('/', (request, response) => {
+  response.send('<h1>Hello World!</h1>')
+})
+
+app.get('/api/notes', (request, response) => {
+  response.json(notes)
+})
+
+const PORT = 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
+```
+Above, our code has two routes to the application. The first defines an event handler to handle GET requests made to the root. The event handler accepts two parameters the first `request` parameter contains all of the information of the request, and the second `response` parameter is used to define how the request is responded to. 
+
+We can start our application using nodemon like this: `node_modules/.bin/nodemon index.js`
+
+With the notes app, we can retrieve a single note like this:
+```js
+app.get('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const note = notes.find(note => note.id === id)
+  
+
+  if (note) {
+    response.json(note)
+  } else {
+    response.status(404).end()
+  }
+})
+```
+
+And we can delete a resource like this:
+```js
+app.delete('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  notes = notes.filter(note => note.id !== id)
+
+  response.status(204).end()
+})
+```
