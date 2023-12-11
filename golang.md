@@ -85,3 +85,19 @@ func main() {
     whatAmI("hey")
 }
 ```
+You can loop through an array using range:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    numbers := []int{2, 4, 6, 8, 10}
+
+    // Looping through slice using range
+    for index, value := range numbers {
+        fmt.Printf("Index: %d, Value: %d\n", index, value)
+    }
+}
+```
+
