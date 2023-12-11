@@ -10,4 +10,14 @@ Sets:
  - The only difference between an array and an array based set is that the set never allows duplicate values in it
  - Reading and searching take the same amount of steps for arrays and sets
  - Insertion: the computer must search all the indexes to confirm it's not a duplicate, then perform a typical insertion. Takes between N + 1 and 2N + 1 steps
- - 
+
+
+## Chapter 3:
+
+The fundamental question is: if there are N data elements, how many steps will the algorithm take?
+ - Our Big O expression O(N) says that it will take N steps
+ - A reading operation for an array will be O(1)
+
+Big O is not just concerned about how many steps an algorithm takes, but also how the number of steps increases as the data changes.
+
+Big O generally refers to the worst case scenario unless specified otherwise
