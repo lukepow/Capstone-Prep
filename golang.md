@@ -101,3 +101,13 @@ func main() {
 }
 ```
 
+Useful packages in Go:
+
+`strconv`implements conversions to and from string representations of basic data types
+ - `strconv.Itoa(number)` converts int to string
+ - `strconv.Atoi(string)` converts string to int
+
+`strings`
+ - `strings.ReplaceAll(word, " ", "")`
+ - `strings.Join(array, "")`
+ - `strings.Fields(phrase)` splits `phrase` into an array separated by whitespace characters
