@@ -111,3 +111,6 @@ Useful packages in Go:
  - `strings.ReplaceAll(word, " ", "")`
  - `strings.Join(array, "")`
  - `strings.Fields(phrase)` splits `phrase` into an array separated by whitespace characters
+
+`fmt`
+ - `return fmt.Sprintf("%d %d", tmpH, tmpL)` this code returns a string formatted by `Sprintf`
