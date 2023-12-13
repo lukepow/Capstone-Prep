@@ -21,3 +21,16 @@ The fundamental question is: if there are N data elements, how many steps will t
 Big O is not just concerned about how many steps an algorithm takes, but also how the number of steps increases as the data changes.
 
 Big O generally refers to the worst case scenario unless specified otherwise
+
+## Chapter 4:
+
+If your algorithm is labelled by Big O as slow, it's worth thinking about how you can try to get it to fall into a faster category of Big O
+
+Bubble Sort Algorithm:
+ - A sorting algorithm that compares two values at a time and swaps their places if necessary. The "pointers" pass through until no more swaps are made
+ - Called bubble sort because the highest unsorted value "bubbles up" to its correct position
+ - Bubble sort makes (N - 1) + (N - 2) + (N - 3) … + 1 comparisons
+ - In a worst case scenario there will be as many swaps as comparisons
+ - Thus, bubble sort takes N^2 steps
+
+When there is a nested loop inside an algorithm, that algorithm is generally O(N^2)
