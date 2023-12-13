@@ -34,3 +34,12 @@ Bubble Sort Algorithm:
  - Thus, bubble sort takes N^2 steps
 
 When there is a nested loop inside an algorithm, that algorithm is generally O(N^2)
+
+## Chapter 5:
+
+Selection sort algorithm:
+ - This algorithm starts at index 0 and saves the lowest value of each pass through. At the end of the pass through it swaps the lowest value to the current index.
+ - The amount of comparisons in selection sort is equivalent to bubble sort, however there are a maximum of N - 1 swaps. This means there are about half as many steps in this algorithm
+ 
+In Big O notation, selection sort is still described as O(N^2) because Big O ignores constants
+ - This means that when 2 algorithms are in the same category of Big O, further analysis is required to determine which algorithm is faster
