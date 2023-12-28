@@ -43,3 +43,28 @@ Selection sort algorithm:
  
 In Big O notation, selection sort is still described as O(N^2) because Big O ignores constants
  - This means that when 2 algorithms are in the same category of Big O, further analysis is required to determine which algorithm is faster
+
+## Chapter 6:
+
+Being able to consider all scenarios (not just the worst case) is an important skill
+
+Insertion sort:
+ - Beginning with index 1, move it in a temporary value. Compare it to the earlier index values. Once you find one that is smaller than the current index value, insert the current index value to the right of that and shift everything else over to the spot where the value used to be
+ - Insertion sort contains removal, comparison, shift, and insertion operations
+ - There are a maximum of 1 + 2 + 3 + … + (N - 1) comparisons, or approximately N^2 / 2
+ - There's as many shifts as comparisons
+ - Removing and inserting the temp value happens once per pass through, so N - 1 of both
+ - Thus, there are N^2 + 2N - 2 steps
+
+Another rule of Big O notation is that it only takes into account the highest order of N when there are multiple orders added together. For insertion sort, this becomes O(N^2)
+
+When comparing worst case scenarios, selection sort is the best of the 3 algorithms. However, this algorithm has N^2 / 2 steps regardless of best or worst case scenario, since it doesn't have any mechanism for ending the pass-through early. Insertion sort has a best case scenario of N, average case of N^2 / 2, and worst case of N^2. Which one is best depends on what the data you are sorting tends towards, but if it's completely random the two algorithms are similar in performance
+
+## Chapter 8:
+
+For each key-value pair in a hash table, each value is stored at the index of the key after the key has been hashed.
+Then, to find the value associated with a key, the computer hashes the key we're looking up and looks in the cell with the associated hash value. The lookup process in a hash is typically O(1). However, if we want to use the value to find an associated key, the lookup process is no longer O(1)
+
+If there are two keys that, when hashed, are the same, the corresponding cell contains a array of arrays rather than a single value. THis is called a collision. The arrays are then searched to find the key and then retrieve its value. 
+
+A hash table must balance avoiding collisions (by allocating lots of cells) with memory efficiency (by not using too many cells). A rule of thumb is that for every 7 elements that need to be stored, there should be 10 cells. Thus, the ideal "load factor" is 0.7
